@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Province Selector</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .select-wrapper {
+      position: relative;
+      width: 300px;
+      margin: 20px auto;
+    }
+
+    #province-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-bottom: 2px solid #ccc;
+    }
+
+    .select-options-wrapper {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+      max-height: 200px;
+      overflow-y: auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-top: none;
+      display: none;
+    }
+
+    .select-options-wrapper select {
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-options-wrapper select option {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .select-options-wrapper select option:hover {
+      background-color: #f2f2f2;
+    }
+
+    .select-options-wrapper {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-top: none;
+      display: none;
+    }
+
+    .select-options-wrapper.show {
+      display: block;
+    }
+
+    .select-options-wrapper select {
+      width: 100%;
+      font-size: 16px;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-options-wrapper select option {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .select-options-wrapper select option:hover {
+      background-color: #f2f2f2;
+    }
+
+    /* hiệu ứng dropdown */
+    .select-options-wrapper.select-active {
+      -webkit-animation: select-show 0.3s ease-in-out;
+      animation: select-show 0.3s ease-in-out;
+    }
+
+    @-webkit-keyframes select-show {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes select-show {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="select-wrapper">
+    <input type="text" id="province-input" placeholder="Select a province">
+
+    <div class="select-options-wrapper">
+      <select id="province-select">
+      </select>
+    </div>
+  </div>
+  <script src="js/demo.js"></script>
+</body>
+
+</html>

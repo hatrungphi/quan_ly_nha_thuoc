@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà thuốc P&T</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="css/quanlythuoc.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <!--header start-->
+    <header class="header">
+        <section class="flex">
+            <a href="baocao.html" class="logo">Hệ thống nhà thuốc</a>
+            <form action="" method="post" class="search-form">
+                <!-- <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+                <button type="submit" class="fas fa-search"></button> -->
+                <div class="search-input">
+                    <input type="search" placeholder="Nhập thông tin cần tìm..." id="tim" >
+                    <img src="images/search.png" alt=""onclick="timTenThuoc(); showContent(4);">
+                </div>
+            </form>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="toggle-btn" class="fas fa-sun"></div>
+            </div>
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="">
+                <h3 class="name">Nguyễn Thanh Trà</h3>
+                <p class="role">Dược Sỹ</p>
+                <a href="profile.html" class="btn">Xem hồ sơ</a>
+                <div class="flex-btn">
+                    <a href="login.html" class="option-btn">Đăng nhập</a>
+                    <a href="register.html" class="option-btn">Đăng xuất</a>
+                </div>
+            </div>
+        </section>
+    </header>
+    <!--header end-->
+
+    <!-- sidebar start -->
+    <div class="side-bar">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+        </div>
+        <nav class="navbar">
+            <a href="baocao.html"><i class="fas fa-home"></i><span>Báo cáo</span></a>
+            <a href="quanlythuoc.html"><i class="fas fa-question"></i><span>Quản lý thuốc</span></a>
+            <a href="quanlynhanvien.html"><i class="fas fa-graduation-cap"></i><span>Quản lý nhân viên</span></a>
+        </nav>
+    </div>
+    <!-- end sidebar -->
+
+    <!-- table add start -->
+
+    <table id="example1" class="display" style="width:100%; height: 50%;  font-size: 10px;">
+        <thead>
+            <tr>
+                <ul class="menu">
+                    <th><a href="#" onclick="showContent(1)">Danh sách thuốc</a></th>
+                    <th><a href="#" onclick="showContent(2)">Thêm thuốc</a></th>
+                    <th><a href="#" onclick="showContent(3)">Nhập thuốc</a></th>
+                    
+                </ul>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- table add end  -->
+
+
+
+
+
+
+    <div id="content1" class="content">
+        <!-- table start -->
+        <div>
+            <table id="example" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Mã SKU</th>
+                        <th>Nhóm thuốc</th>
+                        <th>Nhà sản Xuất</th>
+                        <th>Đơn vị</th>
+                        <th>Tên biệt dược</th>
+                        <th>Số Đăng Ký</th>
+                        <th>Hoạt Chất</th>
+                        <th>Đơn giá</th>
+                        <th>Giá Bán</th>
+                        <th>Hạn sư dụng</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Mã SKU</th>
+                        <th>Nhóm thuốc</th>
+                        <th>Nhà sản Xuất</th>
+                        <th>Đơn vị</th>
+                        <th>Tên biệt dược</th>
+                        <th>Số Đăng Ký</th>
+                        <th>Hoạt Chất</th>
+                        <th>Đơn giá</th>
+                        <th>Giá Bán</th>
+                        <th>Hạn sử dụng</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- table end -->
+
+    </div>
+
+    <div id="content2" class="content">
+        <div class="contentform">
+            <div class="formnhap" style="width: 3px;">
+                <!-- form nhập thuốc -->
+                <form class="form-nhap">
+                    <div class="form-item">
+                        <label for="masku">MaSKU:</label>
+                        <input type="text" id="masku" name="masku" autocomplete="off" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="tennhomthuoc">Tên nhóm thuốc</label>
+                        <input type="type" id="tennhomthuoc" name="tennhomthuoc" onkeyup="timNhomThuoc()"
+                            autocomplete="off" required>
+                        <ul id="myULtennhomthuoc">
+
+                        </ul>
+                    </div>
+                    <div class="form-item">
+                        <label for="tennhasanxuat">Tên nhà sản xuất:</label>
+                        <input type="type" id="tennhasanxuat" name="tennhasanxuat" onkeyup="timNSX()" autocomplete="off"
+                            required>
+                        <ul id="myUL">
+
+                        </ul>
+
+                    </div>
+                    <div class="form-item">
+                        <label for="donvi">Đơn vị:</label>
+                        <select name="donvi" id="donvi" onkeyup="timNhomThuoc()" required>
+                            <option value="donvi" id="myULdonvi">Chọn đơn vị</option>
+                        </select>
+                    </div>
+                    <div class="form-item">
+                        <label for="hoatchat">Hoạt chất</label>
+                        <input type="text" id="hoatchat" name="hoatchat" autocomplete="off" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="tenbietduoc">Tên biệt dược</label>
+                        <input type="text" id="tenbietduoc" name="tenbietduoc" autocomplete="off" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="sodangky">Số đăng ký:</label>
+                        <input type="text" id="sodangky" name="sodangky" autocomplete="off" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="giaban">Đơn giá:</label>
+                        <input type="text" id="dongia" name="dongia" autocomplete="off" required
+                            oninput="this.value=this.value.replace(/[^0-9\,]/g,'').replace(/(\,,)/g,',')">
+                    </div>
+                    <div class="form-item">
+                        <label for="giaban">Giá bán:</label>
+                        <input type="text" id="giaban" name="giaban" autocomplete="off" required
+                            oninput="this.value=this.value.replace(/[^0-9\,]/g,'').replace(/(\,,)/g,',')">
+                    </div>
+                    <div class="form-item">
+                        <label for="hsd">HSD</label>
+                        <input type="text" id="hsd" name="hsd" autocomplete="off" required
+                        oninput="this.value=this.value.replace(/[^0-9\,]/g,'').replace(/(\,,)/g,',')" maxlength="2">
+                    </div>
+                </form>
+                <div class="submitbutton">
+                    <button class="submit-button" type="button" onclick="addProduct()">Thêm mới</button>
+                </div>
+                <!-- hết form nhập thuốc -->
+            </div>
+            <!-- form xuất bắt đầu -->
+            <div class="formxuat">
+                <main class="table">
+                    <section class="table__header">
+                        <h1>Danh sách thuốc vừa nhập</h1>
+                    </section>
+                    <section class="table__body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mã SKU</th>
+                                    <th>Nhóm thuốc</th>
+                                    <th>Nhà sản Xuất</th>
+                                    <th>Đơn vị</th>
+                                    <th>Tên biệt dược</th>
+                                    <th>Số Đăng Ký</th>
+                                    <th>Hoạt Chất</th>
+                                    <th>Đơn giá</th>
+                                    <th>Giá Bán</th>
+                                    <th>Hạn sử dụng</th>
+                                </tr>
+                            </thead>
+                            <tbody id="product-list">
+                                <!-- Thông tin sản phẩm sẽ được thêm vào đây -->
+                            </tbody>
+                        </table>
+                        <button class="submit-button" type="button" onclick="addListProduct()">Lưu</button>
+                    </section>
+                </main>
+            </div>
+            <!-- hết form xuất -->
+        </div>
+
+    </div>
+
+
+    <div id="content3" class="content">
+
+
+        Nội dung sinh hoạt dưới cờ
+
+    </div>
+    <div id="content4" class="content">
+        <!-- table start -->
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã SKU</th>
+                        <th>Nhóm thuốc</th>
+                        <th>Nhà sản Xuất</th>
+                        <th>Đơn vị</th>
+                        <th>Hoạt Chất</th>
+                        <th>Tên biệt dược</th>
+                        <th>Số Đăng Ký</th>
+                        <th>Đơn Giá</th>
+                        <th>Giá Bán</th>
+                        <th>Hạn sử dụng</th>
+                    </tr>
+                </thead>
+                <tbody id="tabTim">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Mã SKU</th>
+                        <th>Nhóm thuốc</th>
+                        <th>Nhà sản Xuất</th>
+                        <th>Đơn vị</th>
+                        <th>Hoạt Chất</th>
+                        <th>Tên biệt dược</th>
+                        <th>Số Đăng Ký</th>
+                        <th>Đơn Giá</th>
+                        <th>Giá Bán</th>
+                        <th>Hạn sử dụng</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- table end -->
+
+    </div>
+
+
+
+    <!-- footer start -->
+
+    <!-- <footer class="footer">
+
+        <span>P&T Pharmacy 1 || 180 Cao Lỗ, Phường 4, Quận 8, TP HCM || 0857435466 </span>
+        <br>
+        <span>P&T Pharmacy 2 || 262C Điện Biên Phủ, P. Võ Thị Sáu, Q.3, TP HCM || 096 988 4949 </span>
+
+    </footer> -->
+
+    <!-- footer end -->
+
+
+    <!-- custom js file link  -->
+    <script src="js/script.js"></script>
+    <script src="js/themthuoc.js"></script>
+    <script src="API/hiendanhsachthuoc.js"></script>
+    <script src="API/nhasanxuat.js"></script>
+    <script src="API/nhomthuoc.js"></script>
+    <script src="API/donvi.js"></script>
+    <script src="API/thuocAPI.js"></script>
+    
+    <script>
+        window.onload = function () {
+            hienThiTatCa();
+        };
+        // function addCommas(input) {
+        //     var value = input.value.replace(/[^0-9]/g, '');
+        //     var x = value.split('.');
+        //     var x1 = x[0];
+        //     var x2 = x.length > 1 ? '.' + x[1] : '';
+        //     var regex = /(\d+)(\d{3})/;
+        //     while (regex.test(x1)) {
+        //         x1 = x1.replace(regex, '$1' + ' ' + '$2');
+        //     }
+        //     input.value = x1 + x2;
+        //     $(document).on('submit', '#form', function (e) {
+        //         e.preventDefault();
+        //         var giaban = $('#giaban').val().replace(/\s/g, ''); // Loại bỏ khoảng trắng
+        //         // Gửi dữ liệu lên máy chủ
+        //         $.ajax({
+        //             // ...
+        //             data: {
+        //                 giaban: giaban
+        //                 // ...
+        //             },
+        //             // ...
+        //         });
+        //     });
+        // }
+    </script>
+</body>
+
+</html>

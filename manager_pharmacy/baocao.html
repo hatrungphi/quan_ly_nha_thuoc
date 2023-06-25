@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà thuốc P&T</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="css/baocao.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <!--header start-->
+    <header class="header">
+        <section class="flex">
+            <a href="baocao.html" class="logo">Hệ thống nhà thuốc</a>
+            <form action="" method="post" class="search-form">
+                <!-- <input type="text" name="search_box" required placeholder="search courses..." maxlength="100">
+            <button type="submit" class="fas fa-search"></button> -->
+                <div class="search-input">
+                    <input type="search" placeholder="Nhập thông tin cần tìm...">
+                    <img src="images/search.png" alt="">
+                </div>
+            </form>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+                <div id="user-btn" class="fas fa-user"></div>
+                <div id="toggle-btn" class="fas fa-sun"></div>
+            </div>
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="">
+                <h3 class="name">Nguyễn Thanh Trà</h3>
+                <p class="role">Dược Sỹ</p>
+                <a href="profile.html" class="btn">Xem hồ sơ</a>
+                <div class="flex-btn">
+                    <a href="login.html" class="option-btn">Đăng nhập</a>
+                    <a href="register.html" class="option-btn">Đăng xuất</a>
+                </div>
+            </div>
+        </section>
+    </header>
+    <!--header end-->
+
+    <!-- sidebar start -->
+    <div class="side-bar">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+        </div>
+        <nav class="navbar">
+            <a href="baocao.html"><i class="fas fa-home"></i><span>Báo cáo</span></a>
+            <a href="quanlythuoc.html"><i class="fas fa-question"></i><span>Quản lý thuốc</span></a>
+            <a href="quanlynhanvien.html"><i class="fas fa-graduation-cap"></i><span>Quản lý nhân viên</span></a>
+        </nav>
+    </div>
+    <!-- end sidebar -->
+
+    <!-- table add start -->
+
+
+    <table id="example1" class="display" style="width:100%; height: 50%;  font-size: 10px;">
+        <thead>
+            <tr>
+                <ul class="menu">
+                    <th><a href="#" onclick="showContent(1)">Lọc thông tin</a></th>
+                    <th><a href="#" onclick="showContent(2)">Thêm</a></th>
+                    <th><a href="#" onclick="showContent(3)">Nhập</a></th>
+                </ul>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- table add end  -->
+
+
+    </th>
+
+
+
+
+    <div id="content1" class="content">
+        <!-- table lọc -->
+        <div class="filter-container">
+            <input type="date" class="filter-input" id="start-date">
+            <label for="start-date">
+                <h1> Từ </h1>
+            </label>
+            <input type="date" class="filter-input" id="end-date">
+            <label for="end-date">
+                <h1>Đến</h1>
+            </label>
+            <button class="filter-button" onclick="filterData()"> <img src="images/filter-icon.png" alt="Lọc"
+                    class="filter-icon">Lọc</button>
+        </div>
+        <table id="example" class="display nowrap data-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Giờ</th>
+                    <th>Số hoá đơn</th>
+                    <th>Mã SKU</th>
+                    <th>Mã nhóm</th>
+                    <th>Mã nhà sản xuất</th>
+                    <th>Mã đơn vị</th>
+                    <th>Tên biệt dược</th>
+                    <th>Số đăng ký</th>
+                    <th>Hoạt chất</th>
+                    <th>Đơn giá</th>
+                    <th>Giá bán</th>
+                    <th>HSD</th>
+                    <th>Số lượng</th>
+                    <th>Tổng tiền</th>
+                    <th>Thuế</th>
+                    <th>Lợi nhuận</th>
+                    <th>Tên nhân viên</th>
+
+                </tr>
+            </thead>
+            <tbody id="table_baocao">
+                       
+            </tbody>
+        </table>
+        <!-- hết table lọc -->
+
+    </div>
+    <div id="content2" class="content">
+        <div class="contentform">
+            <div class="formnhap" style="width: 2px;">
+                <!-- form nhập thuốc -->
+                <form class="form-nhap">
+                    <div class="form-item">
+                        <label for="masku">MaSKU:</label>
+                        <input type="text" id="masku" name="mask">
+                    </div>
+                    <div class="form-item">
+                        <label for="manhomthuoc">Mã nhóm thuốc</label>
+                        <input type="type" id="manhomthuoc" name="manhomthuoc">
+                    </div>
+                    <div class="form-item">
+                        <label for="manhasanxuat">Mã nhà sản xuất:</label>
+                        <input type="type" id="manhasanxuat" name="manhasanxuat">
+                    </div>
+                    <div class="form-item">
+                        <label for="madonvi">Mã đơn vị:</label>
+                        <input type="text" id="madonvi" name="madonvi">
+                    </div>
+                    <div class="form-item">
+                        <label for="hoatchat">Hoạt chất</label>
+                        <input type="text" id="hoatchat" name="hoatchat">
+                    </div>
+                    <div class="form-item">
+                        <label for="tenbietduoc">Tên biệt dược</label>
+                        <input type="text" id="tenbietduoc" name="tenbietduoc">
+                    </div>
+                    <div class="form-item">
+                        <label for="sodangky">Số đăng ký:</label>
+                        <input type="text" id="sodangky" name="sodangky">
+                    </div>
+                    <div class="form-item">
+                        <label for="giaban">Giá bán:</label>
+                        <input type="number" id="giaban" name="giaban">
+                    </div>
+                </form>
+                <div class="submitbutton">
+                    <button class="submit-button" type="submit">Thêm</button>
+                </div>
+                <!-- hết form nhập thuốc -->
+            </div>
+            <!-- form xuất bắt đầu -->
+            <div class="formxuat">
+                <main class="table">
+                    <section class="table__header">
+                        <h1>Danh sách thuốc vừa nhập</h1>
+                        <div class="input-group">
+                            <input type="search" placeholder="Nhập thông tin cần tìm...">
+                            <img src="images/search.png" alt="">
+                        </div>
+                    </section>
+                    <section class="table__body">
+                        <table id="hien-thi-btn">
+                            <thead>
+                                <tr>
+                                    <th>MaSKU <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Nhóm thuốc<span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Nhà sản xuất<span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Đơn vị<span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Hoạt chất <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Tên biệt dược <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Số đăng ký<span class="icon-arrow">&UpArrow;</span></th>
+                                    <th>Giá bán<span class="icon-arrow">&UpArrow;</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <td>
+                                    <p class="status delivered">Delivered</p>
+                                </td>
+
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
+            </div>
+            <!-- hết form xuất -->
+        </div>
+
+    </div>
+
+
+    <div id="content3" class="content">
+        <!-- table start -->
+        <div>
+            <table id="example" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Mã nhân viên</th>
+                        <th>Mã chi nhánh</th>
+                        <th>CCCD</th>
+                        <th>Tên nhân viên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>SĐT</th>
+                        <th>Địa chỉ</th>
+                        <th>Mã User</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Mã nhân viên</th>
+                        <th>Mã chi nhánh</th>
+                        <th>CCCD</th>
+                        <th>Tên nhân viên</th>
+                        <th>Ngày sinh</th>
+                        <th>Giới tính</th>
+                        <th>SĐT</th>
+                        <th>Địa chỉ</th>
+                        <th>Mã User</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- table end -->
+    </div>
+    </div>
+
+
+
+
+    <!-- footer start -->
+
+    <!-- <footer class="footer">
+
+        <span>P&T Pharmacy 1 || 180 Cao Lỗ, Phường 4, Quận 8, TP HCM || 0857435466 </span>
+        <br>
+        <span>P&T Pharmacy 2 || 262C Điện Biên Phủ, P. Võ Thị Sáu, Q.3, TP HCM || 096 988 4949 </span>
+
+    </footer> -->
+
+    <!-- footer end -->
+
+
+    <!-- custom js file link  -->
+   
+    <script src="API/baocao.js"></script>
+</body>
+
+</html>

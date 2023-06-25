@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <table id="hien-thi-btn">
+        <thead>
+            <tr>
+                <th>Mã SKU</th>
+                <th>Mã nhóm</th>
+                <th>Mã nhà sản xuất</th>
+                <th>Mã đơn vị</th>
+                <th>Tên biệt dược</th>
+                <th>Số đăng ký</th>
+                <th>Giá bán</th>
+                <th>Hoạt chất</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+    <script src="API/thuocAPI.js"></script>
+    <script>
+        window.onload = function () {
+            hienThiTatCa();
+        };
+    </script>
+
+</html>

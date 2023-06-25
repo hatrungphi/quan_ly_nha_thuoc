@@ -1,0 +1,76 @@
+<form>
+    <div>
+        <label for="province">Tỉnh/Thành phố:</label>
+        <input type="text" id="province" name="province" placeholder="-- Nhập tỉnh/thành phố --">
+        <ul id="province-suggestions"></ul>
+    </div>
+    <div id="district-container" style="display: none;">
+        <label for="district">Quận/Huyện:</label>
+        <select id="district" name="district">
+            <option value="">-- Chọn quận/huyện --</option>
+        </select>
+    </div>
+</form>
+
+<script>
+    const provinceInput = document.getElementById("province");
+    const provinceSuggestions = document.getElementById("province-suggestions");
+    const districtContainer = document.getElementById("district-container");
+    const districtSelect = document.getElementById("district");
+    let data;
+
+    // Lấy danh sách tỉnh/thành phố từ API
+    fetch("https://provinces.open-api.vn/api/?depth=2")
+        .then(response => response.json())
+        .then(result => {
+            data = result;
+            // Khởi tạo mảng các tên tỉnh
+            const provinceNames = data.map(province => province.name);
+            // Thêm sự kiện "input" cho input tỉnh/thành phố để gợi ý
+            provinceInput.addEventListener("input", () => {
+                // Xóa các gợi ý cũ
+                while (provinceSuggestions.firstChild) {
+                    provinceSuggestions.removeChild(provinceSuggestions.firstChild);
+                }
+                // Lọc các tên tỉnh phù hợp với từ khóa nhập vào
+                const keyword = provinceInput.value.trim().toLowerCase();
+                const matchedNames = provinceNames.filter(name => name.toLowerCase().includes(keyword));
+                // Thêm các gợi ý mới
+                matchedNames.forEach(name => {
+                    const suggestion = document.createElement("li");
+                    suggestion.textContent = name;
+                    suggestion.addEventListener("click", () => {
+                        provinceInput.value = name;
+                        provinceSuggestions.style.display = "none";
+                        // Tải danh sách huyện tương ứng với tỉnh/thành phố được chọn
+                        const provinceCode = data.find(province => province.name === name).code;
+                        const selectedProvince = data.find(province => province.code === provinceCode);
+                        if (selectedProvince && selectedProvince.districts) {
+                            // Xóa các tùy chọn cũ cho quận/huyện
+                            while (districtSelect.firstChild) {
+                                districtSelect.removeChild(districtSelect.firstChild);
+                            }
+                            // Thêm các tùy chọn mới cho quận/huyện
+                            selectedProvince.districts.forEach((district) => {
+                                const option = document.createElement("option");
+                                option.value = district.code;
+                                option.text = district.name;
+                                districtSelect.appendChild(option);
+                            });
+                            // Hiển thị danh sách quận/huyện và ẩn input tỉnh/thành phố
+                            districtContainer.style.display = "block";
+                            provinceInput.style.display = "none";
+                        }
+                    });
+                    provinceSuggestions.appendChild(suggestion);
+                });
+                // Hiển thị hoặc ẩn danh sách gợi ý tùy theo số lượng kết quả
+                if (matchedNames.length > 0) {
+                    provinceSuggestions.style.display = "block";
+                } else {
+                    provinceSuggestions.style.display = "none";
+                }
+            });
+        })
+        .catch(error => console.error(error));
+</script>
